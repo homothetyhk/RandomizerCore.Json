@@ -1,6 +1,0 @@
-<Project>
-  <PropertyGroup>
-    <References>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed</References>
-    <PostBuildPath>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed\Mods\RandomizerCore.Json\</PostBuildPath>
-  </PropertyGroup>
-</Project>
