@@ -1,0 +1,72 @@
+{
+  "Terms": {
+    "SignedByte": [
+      "A"
+    ],
+    "Int": [
+      "B"
+    ],
+    "State": [
+      "T",
+      "W"
+    ]
+  },
+  "Logic": [
+    {
+      "name": "T",
+      "logic": "T"
+    },
+    {
+      "name": "L",
+      "logic": "W | T + M"
+    },
+    {
+      "name": "W",
+      "logic": "T + A"
+    }
+  ],
+  "Items": [
+    {
+      "$type": "RandomizerCore.LogicItems.SingleItem, RandomizerCore",
+      "Effect": {
+        "Term": "B",
+        "Value": 1
+      },
+      "Name": "I2"
+    },
+    {
+      "$type": "RandomizerCore.LogicItems.BoolItem, RandomizerCore",
+      "Term": "A",
+      "Name": "I3"
+    }
+  ],
+  "ItemStrings": [
+    {
+      "Effect": "A++ >> B+=2",
+      "Name": "I1"
+    }
+  ],
+  "Transitions": [
+    "T"
+  ],
+  "Waypoints": [
+    "W"
+  ],
+  "LP": {
+    "macros": {
+      "M": "A + B"
+    }
+  },
+  "VariableResolver": {
+    "Inner": null
+  },
+  "StateManager": {
+    "Fields": {
+      "Bool": [],
+      "Int": []
+    },
+    "Properties": {},
+    "NamedStates": {},
+    "NamedStateUnions": {}
+  }
+}

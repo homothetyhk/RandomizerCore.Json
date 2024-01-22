@@ -1,0 +1,5 @@
+{
+  "$type": "RandomizerMod.RC.LogicGeoCost, RandomizerMod",
+  "CanReplenishGeoWaypoint": "Can_Replenish_Geo",
+  "GeoAmount": 880
+}
