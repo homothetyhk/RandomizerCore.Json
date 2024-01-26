@@ -6,9 +6,11 @@
     <LangVersion>latest</LangVersion>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
-    <References>C:\Program Files (x86)\Steam\steamapps\common\Hollow Knight\hollow_knight_Data\Managed</References>
     <NoWarn>CS0649</NoWarn>
+    <References></References>
   </PropertyGroup>
+
+  <Import Project="..\RandomizerCore.Json\LocalOverrides.targets" Condition="Exists('..\RandomizerCore.Json\LocalOverrides.targets')" />
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />
@@ -44,18 +46,17 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(References)' != '' And '$(TargetFramework)' == 'net472' And '$(Configuration)' == 'DEBUG'">
     <Reference Include="RandomizerCore">
       <HintPath>$(References)\Mods\RandomizerCore\RandomizerCore.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
     <Reference Include="Newtonsoft.Json">
       <HintPath>$(References)\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' != 'net472'">
+  <ItemGroup Condition="'$(References)' == '' Or '$(TargetFramework)' != 'net472' Or '$(Configuration)' != 'DEBUG'">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="RandomizerCore" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RandomizerCore.Json\RandomizerCore.Json.csproj" />
