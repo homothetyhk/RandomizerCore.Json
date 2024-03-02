@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RandomizerCore.Logic;
+using RandomizerCore.StringItems;
 using System.Reflection;
 
 namespace RandomizerCore.Json.Converters
@@ -28,6 +29,13 @@ namespace RandomizerCore.Json.Converters
             else if (typeof(RandoLocation).IsAssignableFrom(objectType))
             {
                 c.Properties[nameof(RandoLocation.Name)].Ignored = true;
+            }
+            else if (objectType == typeof(FirstOfEffect) || objectType == typeof(AllOfEffect))
+            {
+                JsonProperty p = base.CreateProperty(objectType.GetField("Effects", BindingFlags.Instance | BindingFlags.NonPublic), MemberSerialization.Fields);
+                c.Properties.AddProperty(p);
+                c.CreatorParameters.Clear();
+                c.CreatorParameters.Add(p);
             }
 
             return c;

@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RandomizerCore.Logic;
+using RandomizerCore.StringItems;
 using System.Reflection;
 
 namespace RandomizerCore.Json.Converters
@@ -74,6 +75,21 @@ namespace RandomizerCore.Json.Converters
                 c.CreatorParameters.Add(c.Properties["Name"]);
                 c.CreatorParameters.Add(c.Properties["Logic"]);
                 c.OverrideCreator = (args) => LM.CreateRPNLogicDef(new((string)args[0], (string)args[1]));
+            }
+            else if (objectType == typeof(StringItem))
+            {
+                foreach (JsonProperty p in c.Properties)
+                {
+                    if (p.UnderlyingName != nameof(StringItem.Name) && p.UnderlyingName != nameof(StringItem.EffectString)) p.Ignored = true;
+                }
+
+                JsonProperty name = c.Properties[nameof(StringItem.Name)];
+                JsonProperty effect = c.Properties[nameof(StringItem.EffectString)];
+                effect.PropertyName = nameof(StringItem.Effect);
+                c.CreatorParameters.Clear();
+                c.CreatorParameters.Add(name);
+                c.CreatorParameters.Add(effect);
+                c.OverrideCreator = (args) => LM.FromItemString((string)args[0], (string)args[1]);
             }
         }
     }

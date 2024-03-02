@@ -93,7 +93,26 @@ namespace RandomizerCore.JsonTests
             //js.SerializeToFile("C:\\dev\\RandomizerCore.Json\\RandomizerCore.JsonTests\\Resources\\2024-01-20-stable.json", ctx);
             js.SerializeToString(ctx).Should().Be(json);
         }
-        
+
+        [Fact]
+        public void NonLMStringItemSerialization()
+        {
+            LogicManagerBuilder lmb = new();
+            lmb.GetOrAddTerm("A");
+            lmb.GetOrAddTerm("B");
+            LogicManager lm = new(lmb);
+            LogicItem i1 = lm.FromItemString("I", "`A<1 | B<1 | A<2 + B<2` => (`A + B` => (A++ >> B++) >|> `A<1 + B>1` => A += 2 >|> B++)");
+            JsonSerializer js = JsonUtil.GetLogicSerializer(lm);
+            string j = js.SerializeToString(i1);
+            LogicItem i2 = js.DeserializeFromString<LogicItem>(j);
+            i1.Should().Be(i2);
+
+            j = js.SerializeToString(((StringItem)i1).Effect, typeof(StringItemEffect));
+            StringItemEffect e = js.DeserializeFromString<StringItemEffect>(j);
+            LogicItem i3 = new StringItem("I", "`A<1 | B<1 | A<2 + B<2` => (`A + B` => (A++ >> B++) >|> `A<1 + B>1` => A += 2 >|> B++)", e);
+            i1.Should().Be(i3);
+        }
+
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>967174ad-0f7f-42b7-b53e-7fd661d92787</ProjectGuid>
-    <VersionPrefix>1.0.0</VersionPrefix>
+    <VersionPrefix>1.0.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <RootNamespace>RandomizerCore.Json</RootNamespace>
     <AssemblyName>RandomizerCore.Json</AssemblyName>
