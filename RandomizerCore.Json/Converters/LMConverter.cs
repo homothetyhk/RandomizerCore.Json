@@ -12,15 +12,21 @@ namespace RandomizerCore.Json.Converters
         public override LogicManager ReadJson(JsonReader reader, Type objectType, LogicManager? existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             LogicManagerBuilder lmb = new();
-            JObject lm = JObject.Load(reader);
-            lmb.LP = serializer.DeserializeFromToken<LogicProcessor>(lm[nameof(LogicManager.LP)]!)!;
-            lmb.VariableResolver = serializer.DeserializeFromToken<VariableResolver>(lm[nameof(LogicManager.VariableResolver)]!)!;
             JsonLogicFormat fmt = new(serializer);
 
-            if (lm[nameof(StateManager)] is JToken rsd)
+            JObject lm = JObject.Load(reader);
+
+            lmb.VariableResolver = serializer.DeserializeFromToken<VariableResolver>(lm[nameof(LogicManager.VariableResolver)]!)!;
+
+            if (lm.ContainsKey("Macros"))
             {
-                lmb.LoadData(LogicFileType.StateData, fmt.LoadStateData(rsd.CreateReader()));
+                lmb.LoadData(LogicFileType.Macros, fmt.LoadMacros(lm["Macros"]!.CreateReader()));
             }
+            else if (lm["LP"] is JObject lp && lp["macros"] is JObject lpdict)
+            {
+                lmb.LoadData(LogicFileType.Macros, fmt.LoadMacros(lpdict.CreateReader()));
+            }
+
             lmb.LoadData(LogicFileType.Terms, fmt.LoadTerms(lm["Terms"]!.CreateReader()));
             lmb.LoadData(LogicFileType.Locations, fmt.LoadLocations(lm["Logic"]!.CreateReader()));
 
@@ -94,8 +100,8 @@ namespace RandomizerCore.Json.Converters
             writer.WritePropertyName("Waypoints");
             serializer.Serialize(writer, value.Waypoints.Select(w => w.Name));
 
-            writer.WritePropertyName(nameof(value.LP));
-            serializer.Serialize(writer, value.LP, typeof(LogicProcessor));
+            writer.WritePropertyName("Macros");
+            serializer.Serialize(writer, value.MacroLookup.ToDictionary(kvp => kvp.Key, kvp => kvp.Value.InfixSource));
 
             writer.WritePropertyName(nameof(value.VariableResolver));
             serializer.Serialize(writer, value.VariableResolver, typeof(VariableResolver));
