@@ -34,10 +34,10 @@
     <Using Remove="System.Net.Http" />
     <Using Remove="System.Threading" />
     <Using Remove="System.Threading.Tasks" />
-    <Using Include="Xunit"/>
-    <Using Include="FluentAssertions"/>
-    <Using Include="Newtonsoft.Json"/>
-    <Using Include="RandomizerCore.Json"/>
+    <Using Include="Xunit" />
+    <Using Include="FluentAssertions" />
+    <Using Include="Newtonsoft.Json" />
+    <Using Include="RandomizerCore.Json" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net6.0'">
@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(References)' == '' Or '$(TargetFramework)' != 'net472' Or '$(Configuration)' != 'DEBUG'">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RandomizerCore" Version="2.0.0" />
+    <PackageReference Include="RandomizerCore" Version="2.1.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RandomizerCore.Json\RandomizerCore.Json.csproj" />

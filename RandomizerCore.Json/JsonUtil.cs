@@ -167,7 +167,9 @@ namespace RandomizerCore.Json
             };
 
             js.Converters.Add(new StringEnumConverter());
+#pragma warning disable CS0612 // Type or member is obsolete
             js.Converters.Add(new LogicProcessorConverter());
+#pragma warning restore CS0612 // Type or member is obsolete
             js.Converters.Add(new LMConverter());
             js.Converters.Add(new RandoContextConverter());
             return js;

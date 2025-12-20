@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProjectGuid>967174ad-0f7f-42b7-b53e-7fd661d92787</ProjectGuid>
-    <VersionPrefix>1.0.1</VersionPrefix>
+    <VersionPrefix>1.1.0</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <RootNamespace>RandomizerCore.Json</RootNamespace>
     <AssemblyName>RandomizerCore.Json</AssemblyName>
-    <TargetFrameworks>netstandard2.1;net472;net6.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net472;net8.0</TargetFrameworks>
     <Deterministic>true</Deterministic>
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup Condition="'($References)' == '' Or '$(TargetFramework)' != 'net472' Or '$(Configuration)'!='DEBUG'">
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RandomizerCore" Version="2.0.0" />
+    <PackageReference Include="RandomizerCore" Version="2.1.0" />
   </ItemGroup>
   
   <ItemGroup>

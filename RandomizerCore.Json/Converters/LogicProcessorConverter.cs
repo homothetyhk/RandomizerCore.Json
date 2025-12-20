@@ -4,6 +4,7 @@ using RandomizerCore.StringLogic;
 
 namespace RandomizerCore.Json.Converters
 {
+    [Obsolete]
     public class LogicProcessorConverter : JsonConverter<LogicProcessor>
     {
         public override LogicProcessor? ReadJson(JsonReader reader, Type objectType, LogicProcessor? existingValue, bool hasExistingValue, JsonSerializer serializer)
