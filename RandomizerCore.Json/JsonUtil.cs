@@ -141,7 +141,7 @@ namespace RandomizerCore.Json
 
         public static void SerializeToFile(this JsonSerializer js, string filepath, object o, Type? type = null)
         {
-            using StreamWriter sw = new(File.OpenWrite(filepath));
+            using StreamWriter sw = File.CreateText(filepath);
             if (type is null)
             {
                 js.Serialize(sw, o);
